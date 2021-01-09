@@ -11,7 +11,8 @@ module.exports = {
     contentBase: path.resolve(__dirname,"./dist")
   },
   module: {
-    rules: {
+    rules: [
+    {
       test: /\.(png|jpe?g|gif)$/i,
       use: [
         {
@@ -22,6 +23,6 @@ module.exports = {
           }
         }
       ]
-    }
+    }]
   }
 }

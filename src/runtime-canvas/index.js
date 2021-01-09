@@ -1,20 +1,19 @@
 import { createRenderer } from "@vue/runtime-core"
-import {Graphics,Text} from "pixi.js"
+import {Graphics,Text,Sprite,Container, Texture} from "pixi.js"
 const render = createRenderer({
   //创建一个元素
   createElement(type){
     // rect=>矩形
     let elememt
-    if(type==="rect"){
-      elememt = new Graphics()
-      elememt.beginFill(0xff0000)
-      elememt.drawRect(0,0,300,300)
-      elememt.endFill()
-    }else if(type==="circle"){
-      elememt = new Graphics()
-      elememt.beginFill(0xffff00)
-      elememt.drawCircle(0,0,50)
-      elememt.endFill()
+    switch (type) {
+      case "Sprite":
+        elememt = new Sprite()
+        break;
+      case "Container":
+        elememt = new Container()
+        break;
+      default:
+        break;
     }
     return elememt
   },
@@ -24,7 +23,17 @@ const render = createRenderer({
   },
   //渲染函数第二个参数接受props
   patchProp(el,key,prevValue,nextValue){
-    el[key]=nextValue
+    switch (key) {
+      case "texture":
+        el.texture = Texture.from(nextValue)
+        break;
+      case "onClick":
+        el.on("pointertap",nextValue)
+        break;
+      default:
+        el[key]=nextValue
+        break;
+    }
   },
   //设置文本内容
   setElementText(node,text){

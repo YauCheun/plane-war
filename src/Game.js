@@ -1,7 +1,7 @@
 import {Application} from 'pixi.js'
 const game = new Application({
-  width:500,
-  height:500
+  width:750,
+  height:1080
 })
 document.body.append(game.view)
 export function getRootContanier(){
